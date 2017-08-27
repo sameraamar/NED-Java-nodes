@@ -151,7 +151,7 @@ public class FileGZipReaderActivity extends ActivityBase<String> {
 	            stop = processed >= max;
 	            
 	           line = buffered.readLine();
-	           safeSleep(10);
+	           //safeSleep(10);
 	        }
 			
 //			getBus().isDone(true);
