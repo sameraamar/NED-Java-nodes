@@ -45,15 +45,15 @@ public class LSHActivity extends ActivityBase<Tupel2<String, List<String>>> {
 		    	//GlobalData.getInstance().thread2redis.put(Thread.currentThread().getName(), jedisPool);
 		    	
 		    	set = forest.addDocument(doc._1, dimension, word2idf);
-	
+		    	
 		    	//DocumentClusteringHelper.postLSHMapping(this.doc, set, word2idf);
 		    	//doc._1.setNearestDetermined( true);
 			}
 			
-			getBus().add(new Tupel2<String, List<String>>(doc._1.getId(), set));
+			getBus().add(new Tupel2<String, List<String>>(doc._1.getId(), set)); //return list of neighbors
 			
 			int counter = getBus().getCounter();
-			if(counter % 10000 == 0)
+			if(counter % 1000 == 0)
 			{
 				System.out.println(this.getClass().getSimpleName() + ": " + counter);
 			}

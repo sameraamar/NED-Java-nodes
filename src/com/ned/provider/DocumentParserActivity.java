@@ -16,6 +16,7 @@ public class DocumentParserActivity extends ActivityBase<Tupel2<Document, Intege
 	protected void doRun() 
 	{
 		int counter= 0;
+		
 		while(!lines.isDone())
 		{
 			String json = lines.poll();
@@ -33,7 +34,6 @@ public class DocumentParserActivity extends ActivityBase<Tupel2<Document, Intege
 				System.out.println(this.getClass().getSimpleName() + ": " + counter);
 			}
 		}
-		
 
 	}
 

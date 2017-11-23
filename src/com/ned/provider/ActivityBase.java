@@ -1,6 +1,6 @@
 package com.ned.provider;
 
-public abstract class ActivityBase<T> extends Thread 
+public abstract class ActivityBase<T> implements Runnable
 {
 	private Publisher<T> publish;
 	private Yieldery<T> bus;
@@ -20,11 +20,11 @@ public abstract class ActivityBase<T> extends Thread
 	
 
 	protected void safeSleep(int ms) {
-		try {
+		/*try {
 			sleep(ms);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public Yieldery<T> getBus()

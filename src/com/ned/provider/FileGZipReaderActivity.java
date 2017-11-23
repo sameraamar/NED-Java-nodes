@@ -101,7 +101,7 @@ public class FileGZipReaderActivity extends ActivityBase<String> {
 		long middletime = base; 
 		long firstdoc = 0;
 		long lastdoc;
-		long max = 100000;
+		long max = 30_000_000;
 
     	int offset = 0;
 		int skip_files = (offset / 500_000);
@@ -144,7 +144,7 @@ public class FileGZipReaderActivity extends ActivityBase<String> {
 				
 	            processed = getBus().getCounter();
 	            middle_processed++;
-				if(processed % 10000 == 0)
+				if(processed % 100 == 0)
 				{
 					System.out.println(this.getClass().getSimpleName() + ": " + processed);
 				}

@@ -5,14 +5,14 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Yieldery<T> {
-	private LinkedBlockingQueue<T> stream;
+	private ConcurrentLinkedQueue<T> stream;
 	private AtomicInteger counter ;
 	private boolean done;
 	
 	public Yieldery()
 	{
 		counter = new AtomicInteger(0);
-		stream = new LinkedBlockingQueue<T>();
+		stream = new ConcurrentLinkedQueue<T>();
 		done = false;
 	}
 	

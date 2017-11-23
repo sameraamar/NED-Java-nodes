@@ -1,6 +1,8 @@
 package com.ned.main;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import com.ned.provider.DocumentParserActivity;
@@ -15,27 +17,34 @@ public class TestMain {
 	public static void main(String[] args) throws Exception {
 		GlobalData.getInstance().init();
 		
+		ExecutorService es = Executors.newFixedThreadPool(30);
+		
+		
+		
 		FileGZipReaderActivity reader = new FileGZipReaderActivity();
 		reader.init();
-		reader.setDaemon(true);
+		//reader.setDaemon(true);
+		es.execute(reader);
 		
 		DocumentParserActivity docActivity = new DocumentParserActivity( reader.getBus() );
 		docActivity.init();
-		docActivity.setDaemon(true);
-		
+		//docActivity.setDaemon(true);
+		es.execute(docActivity);
+
 		LSHActivity lsh = new LSHActivity( docActivity.getBus() );
 		lsh.init();
-		lsh.setDaemon(true);
+		//lsh.setDaemon(true);
+		es.execute(lsh);
 		
-		lsh.start();
-		docActivity.start();
-		reader.start();
+		//lsh.start();
+		//docActivity.start();
+		//reader.start();
 
 		int counter = 0;
 		boolean flag = true;
 		
-		if(counter < 1000000) 
-			sleep();
+		//if(counter < 1000000) 
+		//	sleep();
 
 		
 		long base = System.nanoTime();
@@ -45,10 +54,10 @@ public class TestMain {
 			counter = lsh.getBus().getCounter();
 			Tupel2<String, List<String>> val = lsh.getBus().poll();
 			
-			while(val == null)
+			/*while(val == null)
 			{
 				sleep();
-			}
+			}*/
 			if(counter % 10000 == 0)
 			{
 				long currenttime = System.nanoTime();
@@ -66,10 +75,15 @@ public class TestMain {
 			
 		}
 		
+		es.shutdown();
+		
 		System.out.println("done.");
 	}
 
 	private static void sleep() {
+		if(true)
+			return;
+			
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
